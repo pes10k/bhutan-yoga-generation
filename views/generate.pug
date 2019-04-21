@@ -1,0 +1,19 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    link(rel="stylesheet" href="/static/bootstrap.min.css")
+    title= site_name
+  body
+    div(class="container")
+      div.row
+        div.col
+          h1 #{site_name} Generated File
+          h2 Successfully generated lesson.
+
+          p Lesson includes the following sub-lessons:
+          ul
+            each track in playlist
+              li #{track[0]}
+
+          a(href="/lessons/" + mergedFile class="btn btn-primary btn-lg") Download the generated lesson.

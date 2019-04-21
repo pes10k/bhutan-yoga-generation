@@ -11,8 +11,8 @@ const numTracks = process.argv[2];
         for (const aTrack of playlist) {
             console.log("\t" + aTrack[1] + ". " + aTrack[0]);
         }
-        const mergedFilePath = await convertLib.mergeTracks(playlist, "/tmp/cache", "/tmp");
-        console.log("File written to: " + mergedFilePath);
+        const mergeResult = await convertLib.mergeTracks(playlist, "/tmp/cache", "/tmp");
+        console.log("File written to: " + mergeResult.path);
     } catch (_) {
         console.error("Goof up");
         console.error(_);
