@@ -1,7 +1,5 @@
 {
-  "port": 8080,
-  "audio": "./lessons",
-  "tmp": "/tmp",
+  "port": 443,
   "min tracks": 5,
   "site name": "Cecily's Yoga Site"
 }

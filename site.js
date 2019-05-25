@@ -13,6 +13,8 @@ const numAudioFiles = Object.keys(audioData.tracks).reduce((prev, cur) => {
 
 const express = require("express");
 const bodyParser = require("body-parser");
+const port = process.env.PORT || config.port;
+
 
 const app = express();
 
@@ -74,6 +76,6 @@ app.get("/play/:tracks", async (req, res) => {
   res.render("play", formParams);
 });
 
-app.listen(config.port, _ => {
+app.listen(port, _ => {
   console.log(`listening on port ${config.port}!`);
 });

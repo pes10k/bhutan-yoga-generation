@@ -1,12 +1,12 @@
 {
-  "name": "cecily",
+  "name": "bhutan-yoga-generation",
   "version": "1.0.0",
   "description": "",
-  "main": "tracks.js",
+  "main": "site.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node site.js"
   },
-  "author": "",
+  "author": "Peter Snyder",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
