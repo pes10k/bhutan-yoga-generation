@@ -2,17 +2,17 @@ doctype html
 html(lang="en")
   head
     meta(charset="UTF-8")
-    link(rel="stylesheet" href="/static/bootstrap.min.css")
+    link(rel="stylesheet" href="/static/css/bootstrap.min.css")
     title= site_name
   body
-    div(class="container")
-      div.row
-        div.col
+    div.container
+      div.row.justify-content-center
+        div.col-md-auto
           h1= site_name
           form(method='POST' action="/generate")
             div.form-group
               label(for='num') How many lessons to include:
               input#num.form-control(type='number' min=min_tracks max=num_tracks value=min_tracks name='num')
-              small(class="form-text text-muted") Select a number between #{min_tracks} and #{num_tracks}
+              small.form-text.text-muted Select a number between #{min_tracks} and #{num_tracks}
             div.form-group
               button(type=submit) Submit

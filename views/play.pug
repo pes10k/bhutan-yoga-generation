@@ -1,0 +1,46 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    link(rel="stylesheet" href="/static/css/bootstrap.min.css")
+    link(rel="stylesheet" href="/static/css/jplayer.blue.monday.min.css")
+    title= site_name
+  body
+    div(class="container")
+      div.row.justify-content-center.mb-5
+        div.col-md-auto
+          h1 #{site_name} Generated Lesson
+
+          div(id="jp-container-id" class="jp-container jp-video" role="application" aria-label="media player")
+            div.jp-type-playlist
+              div(class="jp-jplayer" id="jp-jplayer-id")
+              div.jp-gui
+                div.jp-interface
+                  div.jp-progress
+                    div.jp-seek-bar
+                      div.jp-play-bar
+                  div(class="jp-current-time" role="timer" aria-label="time")
+                  div(class="jp-duration" role="timer" aria-label="duration")
+                  div.jp-controls-holder
+                    div.jp-controls
+                      button.jp-previous previous
+                      button(class="jp-play" tabindex="0") play
+                      button.jp-next next
+                      button.jp-stop stop
+                    div.jp-toggles
+                      button.jp-full-screen full screen
+                  div.jp-details
+                    div(class="jp-title" aria-label="title")
+              div.jp-playlist
+                ul
+                  li
+
+      div.row
+        div.col
+          a(href="/" class="btn btn-secondary btn-lg btn-block") ← Start over
+    script.
+      window.playlistData = !{playlistJSON};
+    script(src="/static/js/jquery-2.2.4.min.js")
+    script(src="/static/js/jquery.jplayer.min.js")
+    script(src="/static/js/jplayer.playlist.min.js")
+    script(src="/static/js/play.js")

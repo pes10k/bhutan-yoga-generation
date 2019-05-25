@@ -7,7 +7,7 @@ const config = JSON.parse(configDataText);
 
 const audioDataText = fsLib.readFileSync("./data.json", "utf8");
 const audioData = JSON.parse(audioDataText);
-const numAudioFiles = Object.keys(audioData).reduce((prev, cur) => {
+const numAudioFiles = Object.keys(audioData.tracks).reduce((prev, cur) => {
   return prev + cur.length;
 }, 0);
 
@@ -17,10 +17,9 @@ const bodyParser = require("body-parser");
 const app = express();
 
 const tracksLib = require("./lib/tracks");
-const convertLib = require("./lib/convert");
 
 app.use("/static", express.static("static"));
-app.use("/lessons", express.static("lessons"));
+app.use("/audio", express.static("audio"));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "pug");
 
@@ -33,25 +32,48 @@ app.get("/", (req, res) => {
 });
 
 app.post("/generate", async (req, res) => {
-  const formParams = {
-    "site_name": config["site name"],
-    "num_tracks": numAudioFiles,
-    "min_tracks": config["min tracks"],
-  };
-  const numTracks = req.body.num;
-  if (parseInt(numTracks).toString() !== numTracks) {
-    formParams.error = "Received an invalid number of tracks.";
-  } else {
-    const playlist = await tracksLib.getPlaylist(numTracks);
-    formParams.playlist = playlist;
-
-    const mergeRs = await convertLib.mergeTracks(playlist, "./lessons", "/tmp");
-    formParams.mergedFile = mergeRs.key;
+  const numTracksStr = req.body.num;
+  const numTracksInt = parseInt(numTracksStr);
+  if (numTracksInt.toString() !== numTracksStr ||
+      numTracksInt > numAudioFiles) {
+    res.redirect("/");
+    return;
   }
 
-  res.render("generate", formParams);
+  const playlist = await tracksLib.getPlaylist(numTracksInt);
+  const trackNums = playlist.map(e => audioData.uuidToNum[e[2]]).filter(e => !!e);
+  if (trackNums.length !== numTracksInt) {
+    res.redirect("/");
+    return;
+  }
+
+  res.redirect("/play/" + trackNums.join("+"));
+});
+
+app.get("/play/:tracks", async (req, res) => {
+  const formParams = {
+    "site_name": config["site name"],
+  };
+  const trackNums = req.params.tracks.split("+");
+  const playlist = trackNums.map(e => {
+      const trackPath = audioData.numToPath[e];
+      if (trackPath === undefined) {
+        return false;
+      }
+
+      const [trackGroup, trackIndex] = trackPath;
+      return audioData.tracks[trackGroup][trackIndex];
+    }).filter(e => !!e);
+
+  if (playlist.length !== trackNums.length) {
+    formParams.error = "Received invalid tracks, please start over.";
+  } else {
+    formParams.playlistJSON = JSON.stringify(playlist);
+  }
+
+  res.render("play", formParams);
 });
 
 app.listen(config.port, _ => {
-  console.log(`Example app listening on port ${config.port}!`);
+  console.log(`listening on port ${config.port}!`);
 });
