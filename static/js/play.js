@@ -14,11 +14,11 @@ $(function () {
   var playlistOptions = {
     playlistOptions: {
       autoPlay: false,
-      enableRemoveControls: true
+      enableRemoveControls: false
     },  
     solution: "html",
     supplied: "m4a",
-    audioFullScreen: true,
+    audioFullScreen: false,
     useStateClassSkin: true,
     keyEnabled: true
   };
