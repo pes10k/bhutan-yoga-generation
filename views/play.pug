@@ -1,11 +1,10 @@
 doctype html
 html(lang="en")
   head
-    meta(charset="UTF-8")
-    link(rel="stylesheet" href="/static/css/bootstrap.min.css")
+    include includes/head.pug
     link(rel="stylesheet" href="/static/css/jplayer.blue.monday.min.css")
-    title= site_name
   body
+    include includes/nav.pug
     div(class="container")
       div.row.justify-content-center.mb-5
         div.col-md-auto
@@ -38,9 +37,9 @@ html(lang="en")
       div.row
         div.col
           a(href="/" class="btn btn-secondary btn-lg btn-block") ← Start over
+    include includes/suffix.pug
     script.
       window.playlistData = !{playlistJSON};
-    script(src="/static/js/jquery-2.2.4.min.js")
     script(src="/static/js/jquery.jplayer.min.js")
     script(src="/static/js/jplayer.playlist.min.js")
     script(src="/static/js/play.js")

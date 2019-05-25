@@ -77,5 +77,5 @@ app.get("/play/:tracks", async (req, res) => {
 });
 
 app.listen(port, _ => {
-  console.log(`listening on port ${config.port}!`);
+  console.log(`listening on port ${port}!`);
 });

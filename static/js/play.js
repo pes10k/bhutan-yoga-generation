@@ -13,7 +13,7 @@ $(function () {
 
   var playlistOptions = {
     playlistOptions: {
-      autoPlay: true,
+      autoPlay: false,
       enableRemoveControls: true
     },  
     solution: "html",
