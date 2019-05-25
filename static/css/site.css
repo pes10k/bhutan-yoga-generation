@@ -1,0 +1,12 @@
+body .jp-video .jp-type-playlist .jp-controls {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body .jp-controls-holder {
+  width: auto;
+}
+
+body .jp-video .jp-controls {
+  float: none;
+}
